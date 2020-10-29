@@ -3,7 +3,7 @@
 #include <iostream>
 
 // Трансплонирование матрицы A
-std::vector<std::vector<double>> transpose_2(const std::vector<std::vector<double>> &A) {
+std::vector<std::vector<double>> transpose(const std::vector<std::vector<double>> &A) {
     std::vector<std::vector<double>> transpose;
     for (size_t i = 0; i < A.size(); ++i) {
         std::vector<double> t;
@@ -31,7 +31,7 @@ int main() {
     // G = 6y1 + 4y2 + y3
     // A(t)y >= c(t) (t) - трансплонированная
 
-    std::vector<std::vector<double>> A_transpose = transpose_2(A);
+    std::vector<std::vector<double>> A_transpose = transpose(A);
     const std::vector<double> &c_transpose = c;
     const std::vector<double> &b_transpose = b;
 
