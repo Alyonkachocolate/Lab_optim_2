@@ -104,7 +104,10 @@ size_t string(size_t column_, const std::vector<std::vector<double>> &simplex) {
         }
     }
     if (C == -1) return -1;
-    std::cout << "Element: " << simplex[string_][column_] << " (in column: " << column_ + 1 << " and string: " << string_ + 1 << "). Ratio " << simplex.at(string_).at(0) << "/" << simplex.at(string_).at(column_) << " = " << simplex.at(string_).at(0) / simplex.at(string_).at(column_) << std::endl;
+    std::cout << "Element: " << simplex[string_][column_] << " (in column: " << column_
+              << " and string: " << string_ << "). Ratio "
+              << simplex.at(string_).at(0) << "/" << simplex.at(string_).at(column_)
+              << " = " << simplex.at(string_).at(0) / simplex.at(string_).at(column_) << std::endl;
     std::cout << '\n';
     return string_;
 }
