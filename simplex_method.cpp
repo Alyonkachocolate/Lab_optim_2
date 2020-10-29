@@ -117,11 +117,14 @@ double simplex_method(std::vector<std::vector<double>> A,
     double ans = 0; // для хранения результата
 
     // Вывод матриц из условия
-    std::cout << std::setw(18) << "A" << std::endl;
+    if (task) std::cout << std::setw(18) << "A" << std::endl;
+    else std::cout << std::setw(18) << "A_transpose" << std::endl;
     print_2(A);
-    std::cout << std::setw(18) << "c" << std::endl;
+    if (task) std::cout << std::setw(18) << "c" << std::endl;
+    else std::cout << std::setw(18) << "b_transpose" << std::endl;
     print_1(c);
-    std::cout << std::setw(18) << "b" << std::endl;
+    if (task) std::cout << std::setw(18) << "b" << std::endl;
+    else std::cout << std::setw(18) << "c_transpose" << std::endl;
     print_1(b);
 
     // Векторa для хранения базисных и свободных переменных:

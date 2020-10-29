@@ -38,7 +38,7 @@ int main() {
     double G = simplex_method(A_transpose, b_transpose, c_transpose, false);
 
 
-    std::cout << "\nConclusion: the solution of the direct problem (F = " << F
+    std::cout << "\nCONCLUSION: the solution of the direct problem (F = " << F
               << ") is equal to the solution of the dual problem (G =" << G << ")."<< std::endl;
     return 0;
 }
