@@ -61,7 +61,7 @@ void first_table(std::vector<std::vector<double>> &A,
     size_t k = 0;
     for (auto &i : A) {
         if (!task)
-            for (auto &j : i) j = -j; // если двойственная, умножаем матрицу A на -1, приводим к знаку <=
+            for (auto &j : i) j = -j;// если двойственная, умножаем матрицу A на -1, приводим к знаку <=
         // если двойственная, умножаем вектор b на -1, приводим к знаку <=
         if (task) i.insert(i.begin(), b[k]);
         else
@@ -104,8 +104,8 @@ size_t string(size_t column_, const std::vector<std::vector<double>> &simplex) {
         }
     }
     if (C == -1) return -1;
-    std::cout << "Element: " << simplex[string_][column_] << " (in column: " << column_
-              << " and string: " << string_ << "). Ratio "
+    std::cout << "Element: " << simplex[string_][column_] << " (in column: " << column_ + 1
+              << " and string: " << string_ + 1 << "). Ratio "
               << simplex.at(string_).at(0) << "/" << simplex.at(string_).at(column_)
               << " = " << simplex.at(string_).at(0) / simplex.at(string_).at(column_) << std::endl;
     std::cout << '\n';
@@ -117,17 +117,20 @@ double simplex_method(std::vector<std::vector<double>> A,
                       const std::vector<double> &c,
                       std::vector<double> b, bool task) {
 
-    double ans = 0; // для хранения результата
+    double ans = 0;// для хранения результата
 
     // Вывод матриц из условия
     if (task) std::cout << std::setw(18) << "A" << std::endl;
-    else std::cout << std::setw(18) << "A_transpose" << std::endl;
+    else
+        std::cout << std::setw(18) << "A_transpose" << std::endl;
     print_2(A);
     if (task) std::cout << std::setw(18) << "c" << std::endl;
-    else std::cout << std::setw(18) << "b_transpose" << std::endl;
+    else
+        std::cout << std::setw(18) << "b_transpose" << std::endl;
     print_1(c);
     if (task) std::cout << std::setw(18) << "b" << std::endl;
-    else std::cout << std::setw(18) << "c_transpose" << std::endl;
+    else
+        std::cout << std::setw(18) << "c_transpose" << std::endl;
     print_1(b);
 
     // Векторa для хранения базисных и свободных переменных:
