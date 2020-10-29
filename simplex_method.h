@@ -8,7 +8,7 @@
 #include <vector>
 
 // Cимплекс метод, task: 1 - прямая задача, 0 - обратная задача
-void simplex_method(std::vector<std::vector<double>> A,
+double simplex_method(std::vector<std::vector<double>> A,
                       const std::vector<double> &c,
                       std::vector<double> b, bool task);
 

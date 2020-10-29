@@ -110,9 +110,11 @@ size_t string(size_t column_, const std::vector<std::vector<double>> &simplex) {
 }
 
 // task: true - прямая задача, false - двойственная задача
-void simplex_method(std::vector<std::vector<double>> A,
+double simplex_method(std::vector<std::vector<double>> A,
                       const std::vector<double> &c,
                       std::vector<double> b, bool task) {
+
+    double ans = 0; // для хранения результата
 
     // Вывод матриц из условия
     std::cout << std::setw(18) << "A" << std::endl;
@@ -220,6 +222,7 @@ void simplex_method(std::vector<std::vector<double>> A,
             else {
                 std::cout << "This is the optimal solution" << '\n'
                           << '\n';
+                ans = simplex.at(3).at(0);
                 if (task) {
                     std::cout << "ANSWER: max F = max("
                               << c.at(0) << "x1 + "
@@ -247,4 +250,5 @@ void simplex_method(std::vector<std::vector<double>> A,
             k++;
         }
     }
+    return ans;
 }

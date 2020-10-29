@@ -24,8 +24,7 @@ int main() {
     std::vector<std::vector<double>> A = {{2, 1, 1}, {1, 4, 0}, {0, 0.5, 1}};
     std::vector<double> c = {3, 1, 4};
     std::vector<double> b = {6, 4, 1};
-
-    simplex_method(A, c, b, true);
+    double F = simplex_method(A, c, b, true);
 
     // Двойственная задача
 
@@ -36,7 +35,10 @@ int main() {
     const std::vector<double> &c_transpose = c;
     const std::vector<double> &b_transpose = b;
 
-    simplex_method(A_transpose, b_transpose, c_transpose, false);
+    double G = simplex_method(A_transpose, b_transpose, c_transpose, false);
 
+
+    std::cout << "\nConclusion: the solution of the direct problem (F = " << F
+              << ") is equal to the solution of the dual problem (G =" << G << ")."<< std::endl;
     return 0;
 }
