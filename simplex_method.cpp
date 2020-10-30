@@ -112,50 +112,22 @@ size_t string(size_t column_, const std::vector<std::vector<double>> &simplex) {
     return string_;
 }
 
-// task: true - прямая задача, false - двойственная задача
-double simplex_method(std::vector<std::vector<double>> A,
-                      const std::vector<double> &c,
-                      std::vector<double> b, bool task) {
-
-    double ans = 0;// для хранения результата
-
-    // Вывод матриц из условия
-    if (task) std::cout << std::setw(18) << "A" << std::endl;
-    else
-        std::cout << std::setw(18) << "A_transpose" << std::endl;
-    print_2(A);
-    if (task) std::cout << std::setw(18) << "c" << std::endl;
-    else
-        std::cout << std::setw(18) << "b_transpose" << std::endl;
-    print_1(c);
-    if (task) std::cout << std::setw(18) << "b" << std::endl;
-    else
-        std::cout << std::setw(18) << "c_transpose" << std::endl;
-    print_1(b);
-
-    // Векторa для хранения базисных и свободных переменных:
-    // изначально свободные переменные - x1, x2, x3
-    std::vector<std::string> sv, basis;
-
-    if (task) {
-        sv = {" ", "b", "x1", "x2", "x3"};
-        basis = {"-", "x4", "x5", "x6", "F"};
-    } else {
-        sv = {" ", "b", "y1", "y2", "y3"};
-        basis = {"-", "y4", "y5", "y6", "G"};
-    }
-
-    // Создание и заполенение симплекс таблицы
-    std::vector<std::vector<double>> simplex;
-    first_table(A, c, b, simplex, sv, basis, task);
+// Избавляемся от отрицательных коэффициентов в векторе b
+void problem(std::vector<std::vector<double>> &simplex, bool task,
+             std::vector<std::string> &sv,
+             std::vector<std::string> &basis) {
     size_t column_, string_;
-
-    // Избавляемся от отрицательных коэффициентов в векторе b
     bool ok = true;
     while (ok) {
-        size_t u = 0;
-        while (u < 3 && simplex.at(u).at(0) >= 0) u++;
-        if (u == 3) ok = false;
+        size_t u = -1;
+        double min = 0;
+        for (size_t i = 0; i < 3; ++i) {
+            if (simplex.at(i).at(0) < min) {
+                min = simplex.at(i).at(0);
+                u = i;
+            }
+        }
+        if (u == -1) ok = false;
         else {
             string_ = u;
             u = 1;
@@ -189,6 +161,47 @@ double simplex_method(std::vector<std::vector<double>> A,
             }
         }
     }
+}
+
+// task: true - прямая задача, false - двойственная задача
+double simplex_method(std::vector<std::vector<double>> A,
+                      const std::vector<double> &c,
+                      std::vector<double> b, bool task) {
+
+    double ans = 0;// для хранения результата
+
+    // Вывод матриц из условия
+    if (task) std::cout << std::setw(18) << "A" << std::endl;
+    else
+        std::cout << std::setw(18) << "A_transpose" << std::endl;
+    print_2(A);
+    if (task) std::cout << std::setw(18) << "c" << std::endl;
+    else
+        std::cout << std::setw(18) << "с_transpose" << std::endl;
+    print_1(c);
+    if (task) std::cout << std::setw(18) << "b" << std::endl;
+    else
+        std::cout << std::setw(18) << "b_transpose" << std::endl;
+    print_1(b);
+
+    // Векторa для хранения базисных и свободных переменных:
+    // изначально свободные переменные - x1, x2, x3
+    std::vector<std::string> sv, basis;
+
+    if (task) {
+        sv = {" ", "b", "x1", "x2", "x3"};
+        basis = {"-", "x4", "x5", "x6", "F"};
+    } else {
+        sv = {" ", "b", "y1", "y2", "y3"};
+        basis = {"-", "y4", "y5", "y6", "G"};
+    }
+
+    // Создание и заполенение симплекс таблицы
+    std::vector<std::vector<double>> simplex;
+    first_table(A, c, b, simplex, sv, basis, task);
+    size_t column_, string_;
+
+    problem(simplex, task, sv, basis);
 
     // Самое первое решение - опорное
     size_t k = 1;
@@ -227,8 +240,11 @@ double simplex_method(std::vector<std::vector<double>> A,
             print_simplex(simplex, sv, basis);
 
             // Подведение итога оптимизации. Если итоговый ответ - оптимальный, выписывается ответ
-            if (column(simplex.at(3), task) != 10) std::cout << "This is't the optimal solution" << std::endl;
-            else {
+            problem(simplex, task, sv, basis);
+            if (column(simplex.at(3), task) != 10) {
+                if (k == 1) std::cout << "This is the reference solution" << '\n';
+                std::cout << "This is't the optimal solution" << std::endl;
+            } else {
                 std::cout << "This is the optimal solution" << '\n'
                           << '\n';
                 ans = simplex.at(3).at(0);

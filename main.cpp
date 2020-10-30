@@ -32,13 +32,13 @@ int main() {
     // A(t)y >= c(t) (t) - трансплонированная
 
     std::vector<std::vector<double>> A_transpose = transpose(A);
-    const std::vector<double> &c_transpose = c;
-    const std::vector<double> &b_transpose = b;
+    const std::vector<double> &c_transpose = b;
+    const std::vector<double> &b_transpose = c;
 
-    double G = simplex_method(A_transpose, b_transpose, c_transpose, false);
+    double G = simplex_method(A_transpose, c_transpose, b_transpose, false);
 
 
     std::cout << "\nCONCLUSION: the solution of the direct problem (F = " << F
-              << ") is equal to the solution of the dual problem (G =" << G << ")."<< std::endl;
+              << ") is equal to the solution of the dual problem (G = " << G << ")."<< std::endl;
     return 0;
 }

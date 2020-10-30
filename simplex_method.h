@@ -36,4 +36,7 @@ size_t column(const std::vector<double> &c, bool task);
 // Нахождение разрешающей строки по разрешающему столбцу
 size_t string(size_t column_, const std::vector<std::vector<double>> &simplex);
 
+void problem(std::vector<std::vector<double>> A,
+             const std::vector<double> &c,
+             std::vector<double> b, bool task);
 #endif//LAB_OPTIM_2_SIMPLEX_METHOD_H
