@@ -39,6 +39,6 @@ int main() {
 
 
     std::cout << "\nCONCLUSION: the solution of the direct problem (F = " << F
-              << ") is equal to the solution of the dual problem (G = " << G << ")."<< std::endl;
+              << ") is equal to the solution of the dual problem (G = " << G << ")." << std::endl;
     return 0;
 }

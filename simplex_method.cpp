@@ -112,7 +112,6 @@ size_t string(size_t column_, const std::vector<std::vector<double>> &simplex) {
     return string_;
 }
 
-// Избавляемся от отрицательных коэффициентов в векторе b
 void problem(std::vector<std::vector<double>> &simplex, bool task,
              std::vector<std::string> &sv,
              std::vector<std::string> &basis) {
